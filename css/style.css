@@ -113,7 +113,7 @@ img.art-thumb {
 
 a.art-link:hover {
     background-color: #dcabdd;
-    box-shadow: 3px, 3px, 3px, 3px#dcabdd;
+    box-shadow: 3px, 3px, 3px, 3px #dcabdd;
 }
 
 @media screen and (max-width: 800px) {
