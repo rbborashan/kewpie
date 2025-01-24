@@ -2,52 +2,57 @@ var imageSrcs = [];
 
 function loadPage()
 {
+    buildHeader();
     loadImages();
 }
 
 function loadImages()
 {
-    buildImageSrcs();
-    renderImageTable();
+    if (document.title === "Kewpie Klub - Drawings"
+        || document.title === "Kewpie Klub") {
+        buildImageSrcs("./site_images/art/", 26, 9, 12);
+    }
+    if (document.title === "Kewpie Klub - Scrapbook") {
+        buildImageSrcs("./site_images/scraps/", 0, 0, 2);
+    }
 
     window.addEventListener("resize", renderImageTable);
 }
 
-function buildImageSrcs()
+function buildImageSrcs(img_src, num_jpgs, num_gifs, num_pngs)
 {
-    let IMG_SRC = "./site_images/art/";
-
     /* This implementation is not very nice. For now, I just manually 
        keep track of how many items and are in each directory. */
-    const NUM_JPEGS = 15;
-    const NUM_GIFS = 7;
-    const NUM_PNGS = 2;
-    let NUM_PIC_TOTAL = NUM_JPEGS + NUM_GIFS + NUM_PNGS;
+    let num_pics = num_jpgs + num_gifs + num_pngs;
 
     var total_index = 0;
     var index_jpeg = 0;
     var index_gif = 0;
     var index_png = 0;
 
+    imageSrcs = []; // Clear the array
+
     // Loop through each item type
-    while (total_index < NUM_PIC_TOTAL) {
-        if (index_jpeg < NUM_JPEGS) {
+    while (total_index < num_pics) {
+        if (index_jpeg < num_jpgs) {
             index_jpeg++;
-            imageSrcs.push(IMG_SRC + "jpeg/" + index_jpeg + ".jpeg");
+            imageSrcs.push(img_src + "jpeg/" + index_jpeg + ".jpeg");
         }
 
-        if (index_gif < NUM_GIFS) {
+        if (index_gif < num_gifs) {
             index_gif++;
-            imageSrcs.push(IMG_SRC + "gif/" + index_gif + ".gif");
+            imageSrcs.push(img_src + "gif/" + index_gif + ".gif");
         }
 
-        if (index_png < NUM_PNGS) {
+        if (index_png < num_pngs) {
             index_png++;
-            imageSrcs.push(IMG_SRC + "png/" + index_png + ".png");
+            imageSrcs.push(img_src + "png/" + index_png + ".png");
         }
 
         total_index++;
     }
+
+    renderImageTable();
 }
 
 function determineMaxImagesPerRow(indexStart) {
